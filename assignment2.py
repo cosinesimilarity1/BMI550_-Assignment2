@@ -94,69 +94,68 @@ X_test = np.hstack((X_test_tfidf.toarray(), X_test[numeric_features].values))
 # print("Shape of train:", X_train.shape)
 # print("Shape of test:", X_test.shape)
 
-# 3. Set up classifiers and parameters for GridSearch
-# models = {
-#     'Naive Bayes': MultinomialNB(),
-#     'Logistic Regression': LogisticRegression(max_iter=10000),
-#     'SVM': SVC(),
-#     'KNN': KNeighborsClassifier(),
-#     'Decision Trees': DecisionTreeClassifier(),
-#     'AdaBoost': AdaBoostClassifier(),
-#     # 'Random Forest': RandomForestClassifier(),
-#     #
-#     # 'XGBoost': XGBClassifier(objective='binary:logistic', eval_metric="logloss"),
-#     # 'GradientBoosting': GradientBoostingClassifier(),
-# }
-#
-# param_grids = {
-#     'Naive Bayes': { 'alpha': [0.01, 0.1, 1, 10, 100]},
-#
-#     'Logistic Regression': {'C': [0.001, 0.01, 0.1, 1, 10, 100],
-#         'penalty': ['l1', 'l2'],
-#         'solver': ['lbfgs', 'liblinear', 'sag']},
-#
-#     'SVM': {'C': [0.01, 0.1, 1, 10], 'kernel': ['linear', 'rbf']},
-#     # 'SVM': {'C': [0.001, 0.01, 0.1, 1, 10],
-#     #     'kernel': ['linear', 'poly', 'rbf', 'sigmoid'],
-#     #     'gamma': ['scale', 'auto']},
-#
-#     'KNN': {'n_neighbors': [3, 5, 7, 9], 'weights': ['uniform', 'distance']},
-#
-#     'Decision Tree': {'max_depth': [None, 5, 10, 15], 'criterion': ['gini', 'entropy']},
-#     # 'Decision Trees': {
-#     #     'criterion': ['gini', 'entropy'],
-#     #     'max_depth': [None,5, 10, 20, 30, 40, 50],
-#     #     'min_samples_split': [2, 5, 10],
-#     #     'min_samples_leaf': [1, 2, 4]
-#     # },
-#
-#     'AdaBoost': {'n_estimators': [50, 100, 200], 'learning_rate': [0.01, 0.1, 0.5]}
-#     # 'Random Forest': {'n_estimators': [10, 50, 100, 200],
-#     #     'criterion': ['gini', 'entropy'],
-#     #     'max_depth': [None, 5,10, 20, 30, 40, 50],
-#     #     'min_samples_split': [2, 5, 10],
-#     #     'min_samples_leaf': [1, 2, 4]},
-#     #
-#     # 'XGBoost': {'n_estimators': [50, 100, 200], 'learning_rate': [0.01, 0.1, 0.5]},
-#     # 'GradientBoosting': {'n_estimators': [50, 100, 200], 'learning_rate': [0.01, 0.1, 0.5]},
-#
-# }
-#
-# best_models = {}
-# for classifier_name, classifier in models.items():
-#     grid_search = GridSearchCV(classifier, param_grids[classifier_name], cv=5)
-#     grid_search.fit(X_train, y_train)
-#     best_models[classifier_name] = grid_search.best_estimator_
-#     models[classifier_name].set_params(**grid_search.best_params_)
-#     predictions = grid_search.predict(X_test)
-#     print(f"Model: {classifier_name}")
-#     print("Best Parameters:", grid_search.best_params_)
-#     print("Accuracy:", accuracy_score(y_test, predictions))
-#     print("Micro F1:", f1_score(y_test, predictions, average='micro'))
-#     print("Macro F1:", f1_score(y_test, predictions, average='macro'))
-#     print("------------")
-# print("\n\n Best models parameters")
-# print(best_models)
+models = {
+    'Naive Bayes': MultinomialNB(),
+    'Logistic Regression': LogisticRegression(max_iter=10000),
+    'SVM': SVC(),
+    'KNN': KNeighborsClassifier(),
+    'Decision Trees': DecisionTreeClassifier(),
+    'AdaBoost': AdaBoostClassifier(),
+    # 'Random Forest': RandomForestClassifier(),
+    #
+    # 'XGBoost': XGBClassifier(objective='binary:logistic', eval_metric="logloss"),
+    # 'GradientBoosting': GradientBoostingClassifier(),
+}
+
+param_grids = {
+    'Naive Bayes': { 'alpha': [0.01, 0.1, 1, 10, 100]},
+
+    'Logistic Regression': {'C': [0.001, 0.01, 0.1, 1, 10, 100],
+        'penalty': ['l1', 'l2'],
+        'solver': ['lbfgs', 'liblinear', 'sag']},
+
+    'SVM': {'C': [0.01, 0.1, 1, 10], 'kernel': ['linear', 'rbf']},
+    # 'SVM': {'C': [0.001, 0.01, 0.1, 1, 10],
+    #     'kernel': ['linear', 'poly', 'rbf', 'sigmoid'],
+    #     'gamma': ['scale', 'auto']},
+
+    'KNN': {'n_neighbors': [3, 5, 7, 9], 'weights': ['uniform', 'distance']},
+
+    'Decision Tree': {'max_depth': [None, 5, 10, 15], 'criterion': ['gini', 'entropy']},
+    # 'Decision Trees': {
+    #     'criterion': ['gini', 'entropy'],
+    #     'max_depth': [None,5, 10, 20, 30, 40, 50],
+    #     'min_samples_split': [2, 5, 10],
+    #     'min_samples_leaf': [1, 2, 4]
+    # },
+
+    'AdaBoost': {'n_estimators': [50, 100, 200], 'learning_rate': [0.01, 0.1, 0.5]}
+    # 'Random Forest': {'n_estimators': [10, 50, 100, 200],
+    #     'criterion': ['gini', 'entropy'],
+    #     'max_depth': [None, 5,10, 20, 30, 40, 50],
+    #     'min_samples_split': [2, 5, 10],
+    #     'min_samples_leaf': [1, 2, 4]},
+    #
+    # 'XGBoost': {'n_estimators': [50, 100, 200], 'learning_rate': [0.01, 0.1, 0.5]},
+    # 'GradientBoosting': {'n_estimators': [50, 100, 200], 'learning_rate': [0.01, 0.1, 0.5]},
+
+}
+
+best_models = {}
+for classifier_name, classifier in models.items():
+    grid_search = GridSearchCV(classifier, param_grids[classifier_name], cv=5)
+    grid_search.fit(X_train, y_train)
+    best_models[classifier_name] = grid_search.best_estimator_
+    models[classifier_name].set_params(**grid_search.best_params_)
+    predictions = grid_search.predict(X_test)
+    print(f"Model: {classifier_name}")
+    print("Best Parameters:", grid_search.best_params_)
+    print("Accuracy:", accuracy_score(y_test, predictions))
+    print("Micro F1:", f1_score(y_test, predictions, average='micro'))
+    print("Macro F1:", f1_score(y_test, predictions, average='macro'))
+    print("------------")
+print("\n\n Best models parameters")
+print(best_models)
 
 classifiers= {'Naive Bayes': MultinomialNB(alpha=0.01),
               'Logistic Regression': LogisticRegression(C=10,penalty='l1', max_iter=50000, solver='liblinear'),
